@@ -8,13 +8,16 @@
 
 function WorldEditUpCmd(s: sender, n: number):
 	set {WorldEdit.use.up.use.locationy.use.%{_s}'s uuid%.use} to y coordinate of location at {_s} + {_n}
-	wait 1 tick
-	teleport {_s} to location {_s}'s x-location, {WorldEdit.use.up.use.locationy.use.%{_s}'s uuid%.use}, {_s}'s z-location in world {_s}'s world
-	wait 1 tick
-	if block under {_s} is air or cave air:
-		set block under {_s} to glass
-	send "&7[&cWorldEdit&7] &dYou have up to %{_n}% &dblocks" to {_s}
-	stop
+	if {WorldEdit.use.up.use.locationy.use.%{_s}'s uuid%.use} >= 320:
+		send "&4| &cYou have reached the maximum height !" to {_s}
+		stop
+	else:
+		teleport {_s} to location {_s}'s x-location, {WorldEdit.use.up.use.locationy.use.%{_s}'s uuid%.use}, {_s}'s z-location in world {_s}'s world
+		wait 1 tick
+		if block under {_s} = air or cave air:
+			set block under {_s} to glass
+		send "&7[&cWorldEdit&7] &dYou have up to %{_n}% &dblocks" to {_s}
+		stop
 
 command //up [<number>] [<text>]:
 	executable by: player and console
